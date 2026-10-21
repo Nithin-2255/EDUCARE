@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient or Doctor</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            background: linear-gradient(135deg, #74ebd5, #acb6e5);
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            transition: opacity 1s;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s;
+        }
+        h1 {
+            margin-bottom: 15px;
+            font-size: 22px;
+            font-weight: bold;
+            color: #2c3e50;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .btn {
+            padding: 12px 30px;
+            margin: 8px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: 0.3s;
+            font-weight: bold;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .patient-btn { background: linear-gradient(135deg, #3498db, #6dd5fa); }
+        .doctor-btn { background: linear-gradient(135deg, #2ecc71, #00b894); }
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.3);
+        }
+        #loading {
+            display: none;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+        .loader {
+            display: flex;
+            justify-content: center;
+        }
+         header
+    {
+       border-radius: 15px;
+       display: flex;
+       justify-content: space-between;
+       background-color: white;
+     }
+        .loader .dot {
+            height: 15px;
+            width: 15px;
+            border-radius: 50%;
+            border: 2px solid #e8e8e8;
+            background: #16b0c1;
+            animation: jump 0.8s ease-in-out infinite alternate;
+        }
+        @keyframes jump {
+            100% { background: #661e92; transform: translateY(-0.8rem) scale(1.2); }
+        }
+        .loader .dot:nth-child(1) { animation-delay: 0.1s; }
+        .loader .dot:nth-child(2) { animation-delay: 0.2s; }
+        .loader .dot:nth-child(3) { animation-delay: 0.3s; }
+        .loader .dot:nth-child(4) { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+  
+    <div class="container" id="main-container">
+     <center>  <img src="img/midhunlogo final.png" alt="" width="200px"> </center>
+        <h1>Are you a Patient or a Doctor?</h1>
+        <button class="btn patient-btn" onclick="showLoading('Patient','login_patient.html')">Patient</button>
+        <button class="btn doctor-btn" onclick="showLoading('Doctor', 'doctor_login.html')">Doctor</button>
+    </div>
+    <div id="loading">
+        <div class="loader">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+    <script>
+        function showLoading(userType, redirectUrl) {
+            document.getElementById('main-container').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('main-container').style.display = 'none';
+                const loading = document.getElementById('loading');
+                loading.style.display = 'block';
+                setTimeout(() => loading.style.opacity = '1', 100);
+            }, 800);
+            setTimeout(() => window.location.href = redirectUrl, 2500);
+        }
+    </script>
+</body>
+</html>

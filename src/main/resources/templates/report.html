@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Patient Report & Prescription</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2ecc71, #00b894);
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: auto;
+            animation: fadeIn 1s ease;
+        }
+        @keyframes fadeIn {
+            from {opacity: 0; transform: translateY(20px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+        h2 {
+            text-align: center;
+            color: #00796b;
+            margin-bottom: 30px;
+        }
+        label {
+            font-weight: bold;
+            margin-top: 15px;
+            display: block;
+            color: #333;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+        textarea {
+            resize: vertical;
+        }
+        button {
+            margin-top: 20px;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #2ecc71, #00b894);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background:linear-gradient(135deg, #2ecc71, #00b894);
+             transform: scale(1.05);
+             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        .medication-group {
+            border: 1px solid #c8e6c9;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            background: #f1f8e9;
+        }
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        .patient-info {
+            background-color: #e0f2f1;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            font-size: 16px;
+        }
+        .patient-info strong {
+            color: #004d40;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Patient Report & Prescription</h2>
+    <form id="reportForm" action="/patient/save-report" method="post">
+        <div class="patient-info">
+            <strong>Patient Name:</strong> <span id="displayPatientName" th:text="${pdata.patientName}">John Doe</span><br>
+        </div>
+            <input type="hidden" th:value="${pdata.id}" name="pid">
+            <input type="hidden" th:value="${data.id}" name="did">
+        <label for="report">Medical Report</label>
+        <textarea id="report" name="medicalReport" rows="6" required></textarea>
+
+        <div id="medications">
+    <div class="medication-group" data-index="0">
+        <label>Medication Name</label>
+        <input type="text" name="medications[0].medicationName" required>
+
+        <label>Times to Consume</label>
+        <div class="checkbox-group">
+            <label><input type="checkbox" name="medications[0].timesToConsume" value="Morning"> Morning</label>
+            <label><input type="checkbox" name="medications[0].timesToConsume" value="Afternoon"> Afternoon</label>
+            <label><input type="checkbox" name="medications[0].timesToConsume" value="Evening"> Evening</label>
+            <label><input type="checkbox" name="medications[0].timesToConsume" value="Night"> Night</label>
+            <label><input type="checkbox" name="medications[0].timesToConsume" value="Before Meals"> Before Meals</label>
+            <label><input type="checkbox" name="medications[0].timesToConsume" value="After Meals"> After Meals</label>
+        </div>
+    </div>
+</div>
+
+
+        <button type="button" onclick="addMedication()">+ Add Another Medication</button>
+        <button type="submit">💾 Save Prescription</button>
+    </form>
+</div>
+
+<script>
+let medicationIndex = 1;
+
+function addMedication() {
+    const container = document.getElementById('medications');
+    const group = document.createElement('div');
+    group.className = 'medication-group';
+    group.setAttribute('data-index', medicationIndex);
+    group.innerHTML = `
+        <label>Medication Name</label>
+        <input type="text" name="medications[${medicationIndex}].medicationName" required>
+
+        <label>Times to Consume</label>
+        <div class="checkbox-group">
+            <label><input type="checkbox" name="medications[${medicationIndex}].timesToConsume" value="Morning"> Morning</label>
+            <label><input type="checkbox" name="medications[${medicationIndex}].timesToConsume" value="Afternoon"> Afternoon</label>
+            <label><input type="checkbox" name="medications[${medicationIndex}].timesToConsume" value="Evening"> Evening</label>
+            <label><input type="checkbox" name="medications[${medicationIndex}].timesToConsume" value="Night"> Night</label>
+            <label><input type="checkbox" name="medications[${medicationIndex}].timesToConsume" value="Before Meals"> Before Meals</label>
+            <label><input type="checkbox" name="medications[${medicationIndex}].timesToConsume" value="After Meals"> After Meals</label>
+        </div>
+    `;
+    container.appendChild(group);
+    medicationIndex++;
+}
+
+
+   
+</script>
+</body>
+</html>

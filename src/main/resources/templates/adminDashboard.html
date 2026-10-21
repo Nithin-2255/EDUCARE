@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            background: white;
+        }
+        .sidebar {
+            width: 250px;
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            height: 100vh;
+            position: fixed;
+        }
+        .sidebar h2 {
+            text-align: center;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            margin: 20px 0;
+        }
+        .sidebar ul li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+            background: #34495e;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .sidebar ul li a:hover {
+            background: linear-gradient(135deg, #2ecc71, #00b894);
+        }
+        .content {
+            margin-left: 270px;
+            padding: 20px;
+            width: 100%;
+        }
+        .cards {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .card {
+            background: linear-gradient(135deg, #2ecc71, #00b894);
+            padding: 20px;
+            border-radius: 10px;
+            color: white;
+            text-align: center;
+            flex: 1;
+            min-width: 200px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        section {
+            margin-top: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .table-div
+        {
+          background-color: white;
+          border-radius: 18px;
+        }
+       .bt1
+       {
+          background:linear-gradient(135deg, #2ecc71, #00b894); 
+          border-radius: 5px;
+          width: 100%;
+          height: 100%;
+          border-color: #00b894;
+          color: white;
+       }
+       .bt1:hover
+       {
+          background: linear-gradient(135deg, #2ecc71, #00b894);
+                  transform: scale(1.05);
+       }
+       .card:hover
+       {
+        background: linear-gradient(135deg, #2ecc71, #00b894);
+                  transform: scale(1.05);
+       }
+       table {
+    width:90%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin-left: 50px;
+    border-radius: 18px;
+}
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+th {
+    background:linear-gradient(135deg, #2ecc71, #00b894); 
+    color: white;
+}
+tr:hover {
+    background-color: #f1f1f1;
+}
+  .table-div
+  {
+    background-color: white;
+    border-radius: 18px;
+  }
+        @media (max-width: 500px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .content {
+                margin-left: 0;
+                width: 100%;
+            }
+            .cards {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <nav class="sidebar">
+            <h2>Admin Panel</h2>
+            <ul>
+                <li><a href="/logout"  >Dashboard</a></li>
+                <li><a href="/admin/patient">Patients</a></li>
+                <li><a href="/admin/doctor">Doctors</a></li>
+             
+                <li><a href="/admin/change">Change Request</a></li>
+                
+            </ul>
+        </nav>
+        <main class="content">
+            <header>
+                <h1>Dashboard</h1>
+            </header>
+            <section class="cards">
+                <div class="card">Patients: <span id="total-patients" th:text="${count['pCount']}"></span></div>
+                <div class="card">Doctors: <span id="total-doctors" th:text="${count['dCount']}"></span></div>
+                <div class="card">Edit Request <span id="total-appointments" th:text="${count['aCount']}"></span></div>
+            </section>
+            <section id="patients" th:if="${count['isPatient']}">
+                <h2>Patient List</h2>
+                <table class="table-div">
+                <tr>
+                     <th>Name</th>
+                     <th>Location</th>
+                     <th>Age</th>
+                     
+                     <th>View</th>
+                     
+                     </tr>
+                
+                <tr th:each="item : ${list}">
+                    <td th:text="${item.patientName}" ></td>
+                    <td th:text="${item.location}"></td>
+                    <td th:text="${item.patientAge}"></td>
+                    
+                    <td><a th:href="'patient/getProfileDetails/'+${item.id}" ><button class="bt1">view</button></a></td>
+                    
+                </tr>
+                </table>
+            </section>
+            <section id="doctors"  th:if="${count['isDocter']}">
+                <h2>Doctor List</h2>
+                <table class="table-div">
+                <tr>
+                     <th>Name</th>
+                     <th>DocterLocation</th>
+                     <th>Specialization</th>
+                     <th>Experience in years</th>
+                     
+                     <th>View</th>
+                    
+                     </tr>
+                    <tr th:each="item : ${list}">
+                        <td th:text="${item.name}" ></td>
+                        <td th:text="${item.location}"></td>
+                        <td th:text="${item.specialization}"></td>
+                        <td th:text="${item.experienceYears}"></td>
+                  
+                        <td><a th:href="'doctor/getProfileDetails/'+${item.id}" ><button class="bt1">view</button></a></td>
+                        
+                    </tr>
+                </table>
+            </section>
+            <section id="appointment"  th:if="${count['isApp']}">
+                <h2>Change Request</h2>
+                <table class="table-div">
+                <tr>
+               
+                     
+                     <th>DoctorName</th>
+                     <th> Email ID</th>
+                     <th> Location</th>
+                     <th>Specialization</th>
+                     <th>Experience in years</th>
+                     <th>Change</th>
+                     <th>Edit</th>
+                     </tr>
+                
+                <tr th:each="item : ${list}">
+                    <td th:text="${item.doctorId.name}" ></td>
+                    <td th:text="${item.doctorId.email}"></td>
+                    <td th:text="${item.doctorId.location}"></td>
+                    <td th:text="${item.doctorId.specialization}"></td>
+                     <td th:text="${item.doctorId.experienceYears}"></td>
+                     <td th:text="${item.changeRequest}"></td>
+                     <td><a th:href="'doctor/detail/'+${item.doctorId.id}"><button class="bt1">EDIT</button></a></td>
+                </tr>
+                </table>
+            </section>
+        </main>
+    </div>
+    <script>
+       
+    </script>
+</body>
+</html>

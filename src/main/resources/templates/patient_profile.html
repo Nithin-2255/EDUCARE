@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Home</title>
+    <style>
+    body
+    {
+        display: flex;
+        height: 100vh;
+        flex-direction: column;
+        row-gap: 10px;
+        background: linear-gradient(135deg, #74ebd5, #acb6e5);
+        font-family: 'Poppins', sans-serif;
+        text-align: center;
+        transition: opacity 1s ease-in-out;
+    }
+    header
+    {
+       border-radius: 15px;
+       display: flex;
+       justify-content: space-between;
+       background-color: white;
+     }
+     /* From Uiverse.io by mRcOol7 */ 
+.Btn {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition-duration: 0.4s;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    background:linear-gradient(135deg, #3498db, #6dd5fa);
+  }
+  
+  .sign {
+    width: 100%;
+    transition-duration: 0.4s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .sign svg {
+    width: 17px;
+  }
+  
+  .sign svg path {
+    fill: white;
+  }
+  
+  .text {
+    position: absolute;
+    right: 0%;
+    width: 0%;
+    opacity: 0;
+    color: #ecf0f1;
+    font-size: 1.2em;
+    font-weight: 600;
+    transition-duration: 0.4s;
+  }
+  
+  .Btn:hover {
+    width: 130px;
+    border-radius: 20px;
+    transition-duration: 0.4s;
+    background:linear-gradient(135deg, #3498db, #6dd5fa);
+  }
+  
+  .Btn:hover .sign {
+    width: 30%;
+    transition-duration: 0.4s;
+    padding-left: 12px;
+  }
+  
+  .Btn:hover .text {
+    opacity: 1;
+    width: 70%;
+    transition-duration: 0.4s;
+    padding-right: 10px;
+  }
+  
+  .Btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.2);
+  }
+
+  .patient-profile {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+   
+    text-align: left;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+.profile-header img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid linear-gradient(135deg, #3498db, #6dd5fa) ;
+}
+
+.patient-name {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.patient-info {
+    font-size: 16px;
+    color: #666;
+    margin: 5px 0;
+}
+
+.patient-bio {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #444;
+    background: #e8f5e9;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.details-section {
+    margin-top: 15px;
+    background: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.details-section h3 {
+    margin: 0;
+    font-size: 18px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+}
+
+   .appointment-section {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.appointment-section input, .appointment-section button, .appointment-section select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.appointment-section button {
+    padding: 10px 20px;
+    margin: 8px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 30px;
+    color: white;
+    letter-spacing: 0.8px;
+    width: 100%;
+    background: linear-gradient(135deg, #3498db, #6dd5fa);
+}
+.appointment-section button:hover{
+    transform: scale(1.02);
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.3);
+}
+/* From Uiverse.io by dylanharriscameron */ 
+.card {
+    position: relative;
+    width: 200px;
+    height: 250px;
+    border-radius: 14px;
+    z-index: 1111;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
+    ;
+  }
+  
+  .bg {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 190px;
+    height: 240px;
+    z-index: 2;
+    background: rgba(255, 255, 255, .95);
+    backdrop-filter: blur(24px);
+    border-radius: 10px;
+    overflow: hidden;
+    outline: 2px solid white;
+  }
+  
+  .blob {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background :linear-gradient(135deg, #3498db, #6dd5fa);
+    opacity: 1;
+    filter: blur(12px);
+    animation: blob-bounce 5s infinite ease;
+  }
+  .card-data
+  {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    
+  }
+  .card-img img
+  {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 20px;
+    
+  }
+  .list-doc
+  {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 30px;
+  }
+  .card button
+  {
+  width: 100%;
+  }
+  
+  @keyframes blob-bounce {
+    0% {
+      transform: translate(-100%, -100%) translate3d(0, 0, 0);
+    }
+  
+    25% {
+      transform: translate(-100%, -100%) translate3d(100%, 0, 0);
+    }
+  
+    50% {
+      transform: translate(-100%, -100%) translate3d(100%, 100%, 0);
+    }
+  
+    75% {
+      transform: translate(-100%, -100%) translate3d(0, 100%, 0);
+    }
+  
+    100% {
+      transform: translate(-100%, -100%) translate3d(0, 0, 0);
+    }
+  }
+  
+
+</style>
+<script type="text/javascript">
+</script>
+</head>
+<body>
+ <header> 
+    <img src="img/midhunlogo final.png" alt="" width="200px"> 
+   <a th:href=@{'/logout/d'}> <button class="Btn" onclick="window.close()">
+    <div class="sign">
+      <svg viewBox="0 0 512 512">
+        <path
+          d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"
+        ></path>
+      </svg>
+    </div>
+   <div class="text">Logout</div>
+  </button></a>
+</header>   
+<div class="patient-profile">
+    <div class="profile-header">
+        <img th:src="@{'http://localhost:8080/download/' + ${data.imgId.id}}" alt="Patient Photo" />
+
+        <div>
+            <div class="patient-name" th:text="${data.patientName}">John Doe</div>
+            <div class="patient-info" th:text="'Age:'+ ${data.patientAge}" ></div>
+            <div class="patient-info" >Condition: Hypertension</div>
+        </div>
+    </div>
+    
+    <div class="details-section">
+        <h3>Contact Information</h3>
+        <p class="patient-info" th:text="'Phone:'+ ${data.phoneNo}"></p>
+        <p class="patient-info" th:text="'Email:'+ ${data.email}"></p>
+        <p class="patient-info" th:text="'Address:'+ ${data.address}"></p>
+    </div>
+
+    <div class="details-section">
+        <h3>Emergency Contact</h3>
+        <p class="patient-info" th:text="'Name:'+ ${data.relativeName}"></p>
+        <p class="patient-info" th:text="'Phone:'+ ${data.relativePhone}"></p>
+        <p class="patient-info" th:text="'Relationship:'+ ${data.relation}"></p>
+    </div>
+
+</div>
+
+<div class="appointment-section">
+<form action="search" >
+    <h3>Book an Appointment</h3>
+     <select name="location">
+    <option value="">Select Location</option>
+    <option th:each="loc : ${loc}" th:value="${loc}" th:text="${loc}"></option>
+</select>
+  <input type="hidden" th:value="${data.id}" name="pid">
+<select name="specialty">
+    <option value="">Select Specialty</option>
+    <option th:each="spe : ${spe}" th:value="${spe}" th:text="${spe}"></option>
+</select>
+
+    <button type="submit">Search Doctor</button>
+    </form>
+    <div class="list-doc">
+        <div class="card" th:each="doc : ${doc}">
+            
+            <div class="bg"> <div class="card-border-top">
+            </div>
+            <div class="card-data">
+            <div class=" card-img">
+              <img th:src="@{'http://localhost:8080/download/'+ ${doc.img.id}}"  alt="error">
+            </div>
+            <span class="card-name" th:text="${doc.name}"> </span>
+            <p class="card-role" th:text="${doc.specialization}"></p>
+            <form action="appointment">
+            <input type="hidden" th:value="${doc.id}"  name="did">
+            <input type="hidden" th:value="${data.id}" name="pid">
+            <button name="card-bt" type="submit" > Click
+            </button></form></div></div>
+            <div class="blob"></div>
+          </div>
+          
+          
+          
+    </div>
+ </div>
+</body>
+</html>

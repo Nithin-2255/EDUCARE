@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Appointment System</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #74ebd5, #acb6e5);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header {
+            background: linear-gradient(135deg, #74ebd5, #acb6e5);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        main {
+            background: white;
+            padding: 25px;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+        .appointment-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            text-align: left;
+        }
+        input, select, button {
+            margin-top: 5px;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            transition: 0.3s;
+        }
+        input:focus, select:focus {
+            border-color: #6a11cb;
+            outline: none;
+            box-shadow: 0 0 5px rgba(106, 17, 203, 0.3);
+        }
+        button {
+            background: linear-gradient(135deg, #2ecc71, #00b894);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: linear-gradient(135deg, #2ecc71, #00b894);
+            transform: scale(1.05);
+        }
+        .doctor-details {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            text-align: left;
+        }
+        .doctor-details h4 {
+            margin: 5px 0;
+            font-size: 18px;
+        }
+        .doctor-details p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        Patient Appointment System
+        <center>  <img src="img/midhunlogo final.png" alt="" width="200px"> </center>
+    </header>
+    
+    <main>
+        <section class="appointment-form">
+            <h2>Book an Appointment</h2>
+            <form method="post" action="book">
+               
+                <div class="doctor-details">
+                    
+    
+                   <h5  th:text="'Doctor: '+${doc.name}"> 
+                    </h5>
+                     <h5 th:text="'Specialization: '+${doc.specialization}"></h5>
+                        <strong >Experience:</strong> <p th:text="${doc.experienceYears}"> </p>
+                      <strong>Clinic:</strong><p th:text="${doc.address}"><strong>Clinic:</strong> </p>
+                </div>
+
+                <label for="date">Appointment Date:</label>
+                <input type="date" id="date" name="date" required>
+                <input th:value="${pat.id}" type="hidden" name="pid">
+                 <input th:value="${doc.id}" type="hidden" name="did">
+                <label for="time">Select Time Slot:</label>
+                <select id="time" name="time">
+                    <option value="09:00">09:00 AM</option>
+                    <option value="10:00">10:00 AM</option>
+                    <option value="11:00">11:00 AM</option>
+                    <option value="14:00">02:00 PM</option>
+                    <option value="15:00">03:00 PM</option>
+                    <option value="16:00">04:00 PM</option>
+                </select>
+                
+                <button type="submit">Book Appointment</button>
+            </form>
+        </section>
+    </main>
+</body>
+</html>

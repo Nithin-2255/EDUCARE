@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Report Doctor Detail Change</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #74ebd5, #acb6e5);
+            margin: 0;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin: 12px 0 4px;
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        button {
+            margin-top: 20px;
+            width: 100%;
+            background: linear-gradient(135deg, #2ecc71, #00b894);
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <center>  <img src="img/midhunlogo final.png" alt="" width="200px"> </center>
+    <h2>Report Doctor Detail Change</h2>
+    <form action="/change-submit" method="POST">
+        <input type="hidden" th:value="${data.id}" name="id">
+          
+        <label for="changeReason">Reason for Change</label>
+        <textarea id="changeReason" name="changeReason" placeholder="Please enter what change needed to make..." required></textarea>
+
+        <button type="submit">Submit Change Request</button>
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<style>
+    body
+    {
+        display: flex;
+        height: 100vh;
+        flex-direction: column;
+        row-gap: 10px;
+        background: linear-gradient(135deg, #74ebd5, #acb6e5);
+        font-family: 'Poppins', sans-serif;
+        text-align: center;
+        transition: opacity 1s ease-in-out;
+    }
+    header
+    {
+       border-radius: 15px;
+       display: flex;
+       justify-content: space-between;
+       background-color: white;
+     }
+     /* From Uiverse.io by mRcOol7 */ 
+.Btn {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition-duration: 0.4s;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    background:linear-gradient(135deg, #3498db, #6dd5fa);
+  }
+  
+  .sign {
+    width: 100%;
+    transition-duration: 0.4s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .sign svg {
+    width: 17px;
+  }
+  
+  .sign svg path {
+    fill: white;
+  }
+  
+  .text {
+    position: absolute;
+    right: 0%;
+    width: 0%;
+    opacity: 0;
+    color: #ecf0f1;
+    font-size: 1.2em;
+    font-weight: 600;
+    transition-duration: 0.4s;
+  }
+  
+  .Btn:hover {
+    width: 130px;
+    border-radius: 20px;
+    transition-duration: 0.4s;
+    background:linear-gradient(135deg, #3498db, #6dd5fa);
+  }
+  
+  .Btn:hover .sign {
+    width: 30%;
+    transition-duration: 0.4s;
+    padding-left: 12px;
+  }
+  
+  .Btn:hover .text {
+    opacity: 1;
+    width: 70%;
+    transition-duration: 0.4s;
+    padding-right: 10px;
+  }
+  
+  .Btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.2);
+  }
+
+  .patient-profile {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+   
+    text-align: left;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+.profile-header img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid linear-gradient(135deg, #3498db, #6dd5fa) ;
+}
+
+.patient-name {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.patient-info {
+    font-size: 16px;
+    color: #666;
+    margin: 5px 0;
+}
+
+.patient-bio {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #444;
+    background: #e8f5e9;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.details-section {
+    margin-top: 15px;
+    background: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.details-section h3 {
+    margin: 0;
+    font-size: 18px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+}
+ .report-container {
+        border: 1px solid #ccc;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .medical-report {
+        cursor: pointer;
+        background-color: #f9f9f9;
+        padding: 0.5rem;
+        border-radius: 5px;
+    }
+     .medications {
+        display: none;
+    }
+
+    .medications.show {
+        display: block;
+    }
+    .btn
+    {
+            margin-top: 20px;
+            width: 50%;
+            background: linear-gradient(135deg, #3498db, #6dd5fa);
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            cursor: pointer;
+    }
+    .btn:hover
+    {
+    transform: scale(1.05);
+            box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.3);
+    }
+</style>
+</head>
+
+<body>
+ <header> 
+    <img src="img/midhunlogo final.png" alt="" width="200px"> 
+   <button class="Btn" onClick="history.back()">
+    <div class="sign">
+      <svg viewBox="0 0 512 512">
+        <path
+          d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"
+        ></path>
+      </svg>
+    </div>
+   <div class="text" >Logout</div>
+  </button>
+</header>   
+<div class="patient-profile">
+    <div class="profile-header">
+        <img th:src="@{'http://localhost:8080/download/' + ${data.imgId.id}}" alt="Patient Photo" />
+
+        <div>
+            <div class="patient-name" th:text="${data.patientName}">John Doe</div>
+            <div class="patient-info" th:text="'Age:'+ ${data.patientAge}" ></div>
+        </div>
+    </div>
+    
+    <div class="details-section">
+        <h3>Contact Information</h3>
+        <p class="patient-info" th:text="'Phone:'+ ${data.phoneNo}"></p>
+        <p class="patient-info" th:text="'Email:'+ ${data.email}"></p>
+        <p class="patient-info" th:text="'Address:'+ ${data.address}"></p>
+    </div>
+
+    <div class="details-section">
+        <h3>Emergency Contact</h3>
+        <p class="patient-info" th:text="'Name:'+ ${data.relativeName}"></p>
+        <p class="patient-info" th:text="'Phone:'+ ${data.relativePhone}"></p>
+        <p class="patient-info" th:text="'Relationship:'+ ${data.relation}"></p>
+    </div>
+    <div class="details-section">
+     <h3>Medical Report</h3>
+    <div class="details-section" th:each="rep : ${report}">
+    <div class="medical-report" onclick="toggleMedications(this)">
+       
+        <p th:text="${rep.medicalReport}"></p>
+    </div>
+
+    <div class="medications">
+        <h4>Medications</h4>
+        <ul>
+            <li th:each="med : ${rep.medications}">
+                <strong>Medication Name:</strong> <span th:text="${med.medicationName}"></span><br>
+                <strong>Times to Consume:</strong>
+                <span th:text="${#strings.arrayJoin(med.timesToConsume.toArray(), ', ')}"></span>
+            </li>
+        </ul>
+    </div>
+</div>
+</div>
+  <center><a th:href="'/patient/report/'+${data.id}+'/'+${doc.id}"><button class="btn">prescription</button></a>
+</center>
+<script>
+    function toggleMedications(element) {
+        const meds = element.nextElementSibling;
+        meds.classList.toggle('show');
+    }
+</script>
+</body>
+</html>
